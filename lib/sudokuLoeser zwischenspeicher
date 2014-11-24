@@ -1,0 +1,152 @@
+class Sudoku
+  @grid=(0..80).to_a
+  def initialize
+    #@grid=(0..80).to_a
+  end  
+  
+#getting a Sudoku from a file
+  def read (filename)
+    data = File.open "filename","r"
+    numbers = data.readlines
+    puts numbers.class
+    puts numbers
+  end
+end
+
+#class SudLine
+#  def dokuline(number)
+#    @(dokuline+number.to_i)=grid[(i*10)..(i*10)+9]
+#  end
+#end
+#  
+#  def safe
+#  puts "Give Name for Sudoku"
+#  hwtsafe = gets.chomp
+#  File.new("#{hwtsafe}.csv" +".csv","w")
+#  grid.each do |i|    
+#      line=grid[i].split(" , ")
+#      puts line
+#    end
+#  end
+  
+  
+#end
+rest = File.open("Sudoku1.csv","r")
+feld = rest.readlines #.each{|x| var1[n]=var1[n].to_i 
+# n=n+1 }
+t=0
+m=0
+feld.collect! { |x| 
+  part_line = feld[t].split(";")
+  part_line.delete("\n") 
+  part_line.collect{|l| part_line[m]=part_line[m].to_i
+#    if part_line[m]==nil
+#      part_line[m]=0
+#    end
+    puts part_line[m].inspect + " partL ins"
+           }
+  t+=1
+  puts t.to_s + " hiervor steth t"
+  puts part_line.class 
+  part_line
+}
+
+print feld.inspect + "\n"
+
+puts feld.class
+#print part_line
+puts "end"
+#puts feld
+#var1 = feld[1].split(";")
+#puts var1.inspect
+#var1.map {|x| if  x =="" 
+#    x=0
+#end
+#    }
+#var1.delete("\n")
+#puts var1[1].to_i
+#puts var1[1].class
+#n=0
+#var1.
+#    
+##     var1[x]="0"
+##     puts x
+#end}
+#puts var1.inspect
+#
+#puts "test"
+#puts var1[1].class
+#puts var1[0]
+#est = Sudoku.new
+#est.read("Sudoku1.csv")
+
+23.11.2014 - 15:50 Uhr 
+  part_line = feld[t].split(";")
+  part_line.delete("\n") 
+  part_line.collect{|l| part_line[m]=part_line[m].to_i
+#    if part_line[m]==nil
+#      part_line[m]=0
+#    end
+    puts part_line[m].inspect + " partL ins"
+           }
+  t+=1
+  puts t.to_s + " hiervor steth t"
+  puts part_line.class 
+  part_line
+}
+
+# n=n+1 }
+t=0
+m=0
+feld.collect { |x| 
+  
+  #one_line = feld[t].split(";")
+  feld[t].delete("\n") 
+#  if feld[t]==";;"
+#    feld[t]
+#    
+#  end
+#  part_line.collect{|l| part_line[m]=part_line[m].to_i
+##    if part_line[m]==nil
+##      part_line[m]=0
+##    end
+#    puts part_line[m].inspect + " partL ins"
+#           }
+#  t+=1
+#  puts t.to_s + " hiervor steth t"
+#  puts part_line.class 
+#  part_line
+#print one_line
+}
+
+print feld.inspect
+
+puts feld[0].class
+#print part_line
+puts feld.inspect
+puts "end"
+#puts feld
+#var1 = feld[1].split(";")
+#puts var1.inspect
+#var1.map {|x| if  x =="" 
+#    x=0
+#end
+#    }
+#var1.delete("\n")
+#puts var1[1].to_i
+#puts var1[1].class
+#n=0
+#var1.
+#    
+##     var1[x]="0"
+##     puts x
+#end}
+#puts var1.inspect
+#
+#puts "test"
+#puts var1[1].class
+#puts var1[0]
+#est = Sudoku.new
+#est.read("Sudoku1.csv")
+
+function Sudoku.read
