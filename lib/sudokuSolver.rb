@@ -1,6 +1,6 @@
 class Sudoku
-   @@ref_grid=(0..81).to_a    # reference Array for addressing individual elements
-   @@solution_hash=Hash[*arr.map{|v| [v,[0]]}.flatten] #creates a hash with the keys are the 
+   @ref_grid=(0..81).to_a    # reference Array for addressing individual elements
+   @solution_hash=Hash[*ref_grid.map{|v| [v,[0]]}.flatten] #creates a hash with the keys are the 
    #addresses of the Sudoku and the values will become solution vectors for the Sudoku
 #getting a Sudoku from a file
   def read (filename)    
