@@ -1,5 +1,7 @@
 class Sudoku
-   
+   @@ref_grid=(0..81).to_a    # reference Array for addressing individual elements
+   @@solution_hash=Hash[*arr.map{|v| [v,[0]]}.flatten] #creates a hash with the keys are the 
+   #addresses of the Sudoku and the values will become solution vectors for the Sudoku
 #getting a Sudoku from a file
   def read (filename)    
         rest = File.open("#{filename}","r") #opens sudoku from file in read mode
@@ -86,23 +88,53 @@ def solve
       puts current_block.class
     if current_block.flatten.include?("ncs")==true #zwang in else Schleife wieder rausnehmen (ändern)
       puts "#{@ncs} current_block if"
-    else
+    elsif
       # here check lines here
-      puts "#{@ncs} current_block else"
+     # puts "#{@ncs} current_block else"
       if @ncs==1||@ncs==4||@ncs==7  #check lines of Blocks 1,4,7 (upper lines column)
-        current_line = get_line(1).to_a
-        puts "Zeile 91"
+        current_line = get_line(0).to_a
         if current_line.include?(@ncs)==true 
+          current_block.delete(0)
+        end
+        current_line = get_line(1).to_a
+        if get_line(1).include?(@ncs)==true
           current_block.delete(1)
         end
-        #if get_line(2).include?(@ncs)==true
-          
-        #end
+         current_line = get_line(2).to_a
+        if get_line(2).include?(@ncs)==true
+          current_block.delete(2)
+        end
       elsif @ncs==2||@ncs==5||@ncs==8 # check lines for middle Block
-        puts "Blocks 2 5 und 8"
+       current_line = get_line(3).to_a
+        if current_line.include?(@ncs)==true 
+          current_block.delete(0)
+        end
+        current_line = get_line(4).to_a
+        if get_line(4).include?(@ncs)==true
+          current_block.delete(1)
+        end
+         current_line = get_line(5).to_a
+        if get_line(5).include?(@ncs)==true
+          current_block.delete(2)
+        end
       elsif @ncs==3||@ncs==6||@ncs==9 # check lines for bottom Blocks
-      puts "Blocks 3 ,6 und 9"
+      #puts "Blocks 3 ,6 und 9"
+      current_line = get_line(6).to_a
+        if current_line.include?(@ncs)==true 
+          current_block.delete(0)
+        end
+        current_line = get_line(7).to_a
+        if get_line(8).include?(@ncs)==true
+          current_block.delete(1)
+        end
+         current_line = get_line(8).to_a
+        if get_line(8).include?(@ncs)==true
+          current_block.delete(2)
+        end
       end
+    # check columns if they contain ncs (= number solved for)
+      puts current_block
+    
     end # end of if block for checking for ncs = number solved for in current block
     current_block = current_block.delete_at(1)
     @ncs += 1 #increases for the next number to solve
@@ -131,7 +163,7 @@ class Block < Sudoku #creates a subclass for blocks from the Sudoku superclass w
 
 hier = Sudoku.new
 hier.read("Sudoku1.csv")
-# hier.show
+hier.show
 # puts hier.class
 
 hier.solve
