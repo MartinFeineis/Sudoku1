@@ -60,36 +60,36 @@ class Sudoku
       @block_called =@all_fields[0..2].collect {|x|  x[0..2]}
       @ref_block =@ref_array[0..2].collect {|x|  x[0..2]}
      # @block_called=[ @all_fields[0][0],@all_fields[0][1],@all_fields[0][2],@all_fields[1][0],@all_fields[1][1],@all_fields[1][2],@all_fields[2][0],@all_fields[2][1],@all_fields[2][2],]
-      print @block_called.inspect
+      # print @block_called.inspect
     elsif block_addr==2 #middle left submatrix
       @block_called =@all_fields[3..5].collect {|x|  x[0..2]}
       @ref_block =@ref_array[3..5].collect {|x|  x[0..2]}
-      print @block_called.inspect 
+      # print @block_called.inspect 
     elsif block_addr==3 #lower left submatrx
       #print block_addr
       @block_called= @all_fields[6..8].collect {|x|  x[0..2]}
       @ref_block =@ref_array[6..8].collect {|x|  x[0..2]}
-      print @block_called.inspect
-    elsif  block_addr==4 #upper middle submatrix
+      # print @block_called.inspect + " Block method 3"
+    elsif  block_addr==4 #upper middle submatrix--
       @block_called = @all_fields[0..2].collect {|x|  x[3..5]}
       @ref_block =@ref_array[0..2].collect {|x|  x[3..5]}
-      print @block_called.inspect
+      # print @block_called.inspect+ " Block method 4"
     elsif  block_addr==5 # middle middle submatrix
       @block_called = @all_fields[3..5].collect {|x|  x[3..5]}
       @ref_block =@ref_array[3..5].collect {|x|  x[3..5]}
-      print @block_called.inspect
+      # print @block_called.inspect+ " Block method 5"
     elsif  block_addr==6 #lower middle submatrix
       @block_called = @all_fields[6..8].collect {|x|  x[3..5]}
       @ref_block =@ref_array[6..8].collect {|x|  x[3..5]}
-      print @block_called.inspect
+      # print @block_called.inspect+ " Block method 6"
     elsif  block_addr==7 #upper right submatrix
       @block_called = @all_fields[0..2].collect {|x|  x[6..8]} 
       @ref_block =@ref_array[0..2].collect {|x|  x[6..8]}
-      print @block_called.inspect
+      # print @block_called.inspect+ " Block method 7"
     elsif  block_addr==8 #middle right submatrix
       @block_called = @all_fields[3..5].collect {|x|  x[6..8]}
       @ref_block =@ref_array[3..5].collect {|x|  x[6..8]}
-      print @block_called.inspect
+      # print @block_called.inspect+ " Block method 8"
     elsif  block_addr==9 #lower right submatrix
       @block_called = @all_fields[6..8].collect {|x|  x[6..8]}
       @ref_block =@ref_array[6..8].collect {|x|  x[6..8]}
@@ -111,91 +111,99 @@ class Sudoku
     return @this_column, @ref_column
   end #def get column
   
-  ###############################################
+###############################################
 #                                             #
 #   Function for solving the Sudoku           #
 #                                             # 
 ###############################################
 def solve
   puts "Now solve"
-  @ncs=1 #  ncs = numbe_current_solved; the function is solving for each number in one loop
-  1.upto(9) do  #loop over all 9 numbers
+  @ncs=1 #  ncs = number_current_solved; the function is solving for each number in one loop
+ # 1.upto(9) do  #loop over all 9 numbers
     # getting solution for one numer for one block
     #  @all_fields[@ncs][@ncs] = 780 taking changes in Sudoku grid
     #  puts take_block(@ncs)[0].inspect + "Take Block Line 125"         
-      cur_ref_block, current_block = take_block(@ncs)[1].to_a #.self current_block 
-    if current_block.flatten.include?(@ncs)==true
+       current_block , cur_ref_block = take_block(@ncs) #[1].to_a #.self current_block 
+    if current_block.flatten.include?("@ncs")==true #CHANGE: force to get in else-part
       puts "#{@ncs} current_block if"
     elsif
       # here check lines here
      # puts "#{@ncs} current_block else"
       if @ncs==1||@ncs==4||@ncs==7  #check lines of Blocks 1,4,7 (upper lines column)
-        current_line = get_line(0).to_a
-        if current_line.include?(@ncs)==true 
-          current_block.delete(0)
-          cur_ref_block.delete(0)
+      puts "Block 1/4/7" 
+      current_line = get_line(0).to_a
+      puts current_line.inspect
+      puts current_line[0].include?(2).to_s + " include"
+        if current_line[0].include?(2)==true # CHANGE 2 --> @ncs
+          puts current_block.inspect + " block davor"
+          puts cur_ref_block.inspect + " davro ref"
+          current_block.delete_at(1)
+          cur_ref_block.delete_at(1)
           puts current_block.inspect + "current block 0"
+          puts cur_ref_block.inspect + "current ref block"
         end
         current_line = get_line(1).to_a
-        if get_line(1).include?(@ncs)==true
+       # puts get_line(1)[0].to_s + " hier Get line"
+        if get_line(1).include?(@ncs)==true  
           current_block.delete(1)
           cur_ref_block.delete(1)
          puts     "Zeile 141"     # current_block.class + "current block 1"
         end
          current_line = get_line(2).to_a
-        if get_line(2).include?(@ncs)==true
+        if get_line(2)[0].include?(@ncs)==true
           current_block.delete(2)
           cur_ref_block.delete(2)
           puts "Zeile 146" # current_block + "current block 2"
         end
       elsif @ncs==2||@ncs==5||@ncs==8 # check lines for middle Block
        current_line = get_line(3).to_a
-        if current_line.include?(@ncs)==true 
+        if current_line[0].include?(@ncs)==true 
           current_block.delete(0)
           cur_ref_block.delete(0)
           puts "Zeile 152 " + current_block.inspect.to_s + " current block 3"
         end
         current_line = get_line(4).to_a
-        if get_line(4).include?(@ncs)==true
+        if get_line(4)[0].include?(@ncs)==true
           current_block.delete(1)
           cur_ref_block.delete(1)
          puts "Zeile 157" + current_block.inspect #+ "current block 4"
         end
-         current_line = get_line(5).to_a
-        if get_line(5).include?(@ncs)==true
+        print get_line(5)[0].inspect + " get_line class 11"
+         current_line = get_line(5)[0]
+        if get_line(5)[0].include?(@ncs)==true
           current_block.delete(2)
           cur_ref_block.delete(2)
-      #    puts current_block + "current block 5"
+         # puts current_block.inspect + "current block 5"
         end
       elsif @ncs==3||@ncs==6||@ncs==9 # check lines for bottom Blocks
       #puts "Blocks 3 ,6 und 9"
-      current_line = get_line(6).to_a
-        if current_line.include?(@ncs)==true 
+      current_line = get_line(6)[0].to_a
+        if current_line[0].include?(@ncs)==true 
           current_block.delete(0)
           cur_ref_block.delete(0)
-     #     puts current_block + "current block 6"
+         puts current_block + " current block 6"
         end
         current_line = get_line(7).to_a
-        if get_line(8).include?(@ncs)==true
-          current_block.delete(1)
+        if get_line(8)[0].include?(@ncs)==true
+          current_block.delete(1)-
           cur_ref_block.delete(1)
-       #   puts current_block + "current block 7"
+          puts current_block + " current block 7"
         end
          current_line = get_line(8).to_a
-        if get_line(8).include?(@ncs)==true
+        if get_line(8)[0].include?(@ncs)==true
           current_block.delete(2)
           cur_ref_block.delete(2)
-    #      puts current_block + "current block 8"
+          puts current_block + " current block 8"
         end
       end
     # check columns if they contain ncs (= number solved for)
-      puts current_block  +"cur block"
-      puts cur_ref_block  +"ref block"    
+     puts current_block  +" cur block"
+     puts cur_ref_block  +" ref block"    
     end # end of if block for checking for ncs = number solved for in current block
     current_block = current_block.delete_at(1)
     @ncs += 1 #increases for the next number to solve
    
-  end #loop over 1.upto 9
+ # end #loop over 1.upto 9
 end #function solve
   
 end # End Sudoku Class
@@ -205,3 +213,9 @@ test.read("Sudoku1.csv")
 # puts test.get_column(2).inspect
 #test.show
 test.solve
+
+#a,b = test.take_block(1)
+#puts a.class # +" (Klasse)"
+#puts a.inspect # +"inspect"
+#puts b.class # +" Klasse"
+#puts b.inspect# +" inspect"
