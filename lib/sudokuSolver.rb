@@ -1,7 +1,9 @@
 class Sudoku
   
   def info
-    puts "Sudoku Solver reades Sudoku from a .csv file and solves it"       
+    puts "Sudoku Solver reades Sudoku from a .csv file and solves it"  
+    puts "Trying to take json as input File for Sudoku or to create json file out of csv file to "
+    puts "make lines, blocks and colums and to connect them in between"
   end
   
   def initialize
